@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { db } from '../../constants/firebase';
 import { doc, getDoc } from 'firebase/firestore'
-import SelectedInfo from '../components/selectedInfo';
+import SelectedInfo from '../components/SelectedInfo';
 import Hotels from '../components/Hotels';
 import PlacesToVisit from '../components/PlacesToVisit';
 import Footer from '../components/Footer';

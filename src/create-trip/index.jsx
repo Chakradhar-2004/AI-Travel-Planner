@@ -13,6 +13,7 @@ import {
   SelectTravelsList,
 } from "../constants/options";
 import { chatSession } from "../services/AIModel";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 export default function CreateTrip() {
   const [formData, setFormData] = useState({});
@@ -32,22 +33,22 @@ export default function CreateTrip() {
   //   console.log(formData);
   // }, [formData]);
 
-  const fetchOptions = async (inputValue) => {
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${inputValue}&format=json&addressdetails=1`
-      );
-      const data = await res.json();
-      return data.map((item) => ({
-        label: item.display_name,
-        value: item,
-      }));
-    } catch (error) {
-      console.error('Error fetching locations:', error);
-      toast.error('Error fetching locations');
-      return [];
-    }
-  };
+  // const fetchOptions = async (inputValue) => {
+  //   try {
+  //     const res = await fetch(
+  //       `https://nominatim.openstreetmap.org/search?q=${inputValue}&format=json&addressdetails=1`
+  //     );
+  //     const data = await res.json();
+  //     return data.map((item) => ({
+  //       label: item.display_name,
+  //       value: item,
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error fetching locations:', error);
+  //     toast.error('Error fetching locations');
+  //     return [];
+  //   }
+  // };
 
   const validateForm = () => {
     if (!formData?.budget || !formData?.companions || !formData?.noOfdays || !formData?.location) {
@@ -94,7 +95,7 @@ export default function CreateTrip() {
         toast.error('Invalid trip data format received. Please try again.');
         return;
       }
-
+      // console.log(tripData);
       await saveTripData(tripData);
       
     } catch (error) {
@@ -145,17 +146,20 @@ export default function CreateTrip() {
             <h2 className="my-1 text-xl font-medium">
               Where would you like to explore?
             </h2>
-            <AsyncSelect
-              cacheOptions
-              loadOptions={fetchOptions}
-              onChange={(v) => {
-                setPlace(v);
-                handleInputChange("location", v);
-              }}
-              value={place}
-              placeholder="Search for a location"
-              className="w-full"
+            <GooglePlacesAutocomplete
+              apiKey={import.meta.env.VITE_GOOGLE_PLACE_KEY}
             />
+            {/* // <AsyncSelect
+            //   cacheOptions
+            //   // loadOptions={fetchOptions}
+            //   onChange={(v) => {
+            //     setPlace(v);
+            //     handleInputChange("location", v);
+            //   }}
+            //   value={place}
+            //   placeholder="Search for a location"
+            //   className="w-full"
+            // /> */}
           </div>
 
           {/* Number of Days */}

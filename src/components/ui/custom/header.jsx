@@ -30,11 +30,23 @@ export default function Header() {
 
   return (
     <div className="p-4 shadow-sm flex justify-between items-center">
-      <img src="/logo.svg" alt="Logo" />
+      <img src="/logo.jpg" alt="Logo" className="h-[70px] w-[70px] rounded-lg"/>
       <div className="flex items-center gap-3">
         {user ? (
           <>
             <div className="flex gap-3">
+              
+            <a
+                href="/take-ai-help"
+                className="no-underline text-inherit focus:outline-none"
+              >
+                <Button
+                  variant="outline"
+                  className="rounded-full border-gray-500 hover:border-gray-700 focus:ring-0 focus:outline-none font-bold"
+                >
+                  Take AI Help 😊
+                </Button>
+              </a>
               <a
                 href="/create-trip"
                 className="no-underline text-inherit focus:outline-none"
