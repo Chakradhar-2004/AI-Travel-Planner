@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css'
 import App from './App.jsx'
-import Header from './components/ui/custom/Header'
+import Header from './components/ui/custom/header.jsx'
 import { Toaster } from 'sonner'
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
