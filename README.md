@@ -88,6 +88,14 @@ Fetches all chat messages for a given `user_email` and `session_id`.
 ## 📷 Screenshots
 
 > <img width="899" alt="Screenshot 2025-04-06 at 2 44 48 PM" src="https://github.com/user-attachments/assets/f6854227-29c1-4a5f-a09b-b5ca2968f95e" />
+> <img width="883" alt="Screenshot 2025-04-06 at 2 46 11 PM" src="https://github.com/user-attachments/assets/67dea917-48e2-433e-98c4-a24d57563db0" />
+> <img width="1100" alt="Screenshot 2025-04-06 at 2 47 18 PM" src="https://github.com/user-attachments/assets/f52f2347-1192-4b3f-9f18-2dcb8ad07156" />
+> <img width="1275" alt="Screenshot 2025-04-06 at 2 43 39 PM" src="https://github.com/user-attachments/assets/1880eefa-e228-4c94-8918-9c2123cee175" />
+> <img width="924" alt="Screenshot 2025-04-06 at 2 47 31 PM" src="https://github.com/user-attachments/assets/3ed7ed48-fc01-41cc-b684-333d5e0c3b95" />
+
+
+
+
 
 
 ---
