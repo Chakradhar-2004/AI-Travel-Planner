@@ -87,7 +87,8 @@ Fetches all chat messages for a given `user_email` and `session_id`.
 
 ## 📷 Screenshots
 
-> *(Insert UI screenshots here for homepage, chat window, etc.)*
+> <img width="899" alt="Screenshot 2025-04-06 at 2 44 48 PM" src="https://github.com/user-attachments/assets/f6854227-29c1-4a5f-a09b-b5ca2968f95e" />
+
 
 ---
 
