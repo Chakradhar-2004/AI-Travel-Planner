@@ -49,7 +49,7 @@ export default function AIChat() {
   // Generate AI responses
   const getAIResponse = async (userInput, userEmail, sessionId) => {
     try {
-      const res = await fetch("http://localhost:8000/chat", {
+      const res = await fetch("https://ai-travel-planner-6ojf-93lrksg6p-chakradhar-2004s-projects.vercel.app/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
