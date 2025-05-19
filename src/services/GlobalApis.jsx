@@ -11,6 +11,5 @@ const config = {
         'X-Goog-Api-Key': import.meta.env.VITE_GOOGLE_PLACE_KEY
     }
 }
-console.log(import.meta.env.VITE_GOOGLE_PLACE_KEY);
 
 export const GetPlaceDetails=(data)=> axios.post(BASE_URL, data, config);

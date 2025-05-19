@@ -108,10 +108,9 @@ export default function CreateTrip() {
       setLoading(false);
     }
   };
-
   return (
     <>
-      <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
+      <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5">
         <h2 className="font-bold text-4xl">
           Tell Us About Your Dream Trip🏕️🏝️
         </h2>
@@ -128,10 +127,12 @@ export default function CreateTrip() {
             </h2>
             <GooglePlacesAutocomplete
               apiKey={import.meta.env.VITE_GOOGLE_PLACE_KEY}
+              
               selectProps={{
                 place,
                 onChange:(v)=>{(setPlace(v), handleInputChange('location',v))}
               }}
+              
             />
 
           </div>

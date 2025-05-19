@@ -23,14 +23,12 @@ export default function MyTrips() {
     const querySnapshot = await getDocs(q);
     setUserTrips([]);
     querySnapshot.forEach((doc) => {
-        
-      console.log(doc.id, " => ", doc.data()); 
       setUserTrips(prevVal=>[...prevVal,doc.data()]);
     });
     
   };
 
-  return <div className="p-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
+  return <div className="p-10 md:px-32 lg:px-56 xl:px-72 px-5">
     <h2 className="font-bold text-3xl">MyTrips</h2>
     <div className="grid grid-col-2 mt-10 md:grid-cols-3 gap-5 ">
         {userTrips?.length>0?userTrips.map((trip, index)=>(

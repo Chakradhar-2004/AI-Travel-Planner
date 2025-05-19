@@ -8,13 +8,15 @@ import Take_ai_help from './take-ai-help/take_ai_help.jsx';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Hero/>} />
-      <Route path="/create-trip" element={<CreateTrip />} />
-      <Route path="/view-trip/:tripId" element={<Viewtrip />} />
-      <Route path="/my-trips" element={<MyTrips />} />
-      <Route path="/take-ai-help" element={<Take_ai_help />} />
-    </Routes>
+    <div className="bg-gradient-to-r from-[#ddb4f6] to-[#8dd0fc]">
+      <Routes>
+        <Route path="/" element={<Hero/>} />
+        <Route path="/create-trip" element={<CreateTrip />} />
+        <Route path="/view-trip/:tripId" element={<Viewtrip />} />
+        <Route path="/my-trips" element={<MyTrips />} />
+        <Route path="/take-ai-help" element={<Take_ai_help />} />
+      </Routes>
+    </div>
   );
 }
 

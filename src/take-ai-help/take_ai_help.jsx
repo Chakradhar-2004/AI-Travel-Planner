@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
+import { marked } from "marked";
 
 export default function AIChat() {
   const [messages, setMessages] = useState([
-    { id: 1, content: "Hello! How can I help you today?", sender: "ai" }
+    { id: 1, content: "Hello! How can I help you today?", sender: "ai" },
   ]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesContainerRef = useRef(null);
   // Removed: const messagesEndRef = useRef(null);
@@ -13,69 +14,97 @@ export default function AIChat() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (inputValue.trim() === '') return;
+    if (inputValue.trim() === "") return;
 
     // Add user message
     const newUserMessage = {
       id: messages.length + 1,
       content: inputValue,
-      sender: "user"
+      sender: "user",
     };
 
     setMessages((prev) => [...prev, newUserMessage]);
-    setInputValue('');
+    setInputValue("");
     setIsLoading(true);
 
-    // Simulate AI response after a delay
-    setTimeout(() => {
-      const aiResponse = {
-        id: messages.length + 2,
-        content: getAIResponse(inputValue),
-        sender: "ai"
-      };
-      setMessages((prev) => [...prev, aiResponse]);
-      setIsLoading(false);
-    }, 1000);
+    // Await AI response
+    const aiText = await getAIResponse(
+      inputValue,
+      "user@example.com",
+      "session-123"
+    );
+
+    const newAIMessage = {
+      id: messages.length + 2,
+      content: aiText,
+      sender: "ai",
+    };
+
+    setMessages((prev) => [...prev, newAIMessage]);
+    setIsLoading(false);
   };
 
-  // Simple function to generate AI responses
-  const getAIResponse = (userInput) => {
-    const responses = [
-      `I understand your question about "${userInput}". Let me think about that...`,
-      `That's an interesting point. Here's what I know about ${userInput}.`,
-      `Thanks for asking! I'd be happy to help with ${userInput}.`,
-      `I'm processing your request about "${userInput}". Here's what I can tell you.`
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
+  // Generate AI responses
+  const getAIResponse = async (userInput, userEmail, sessionId) => {
+    try {
+      const res = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userInput,
+          user_email: userEmail,
+          session_id: sessionId,
+        }),
+      });
+
+      const data = await res.json();
+      return data.response;
+    } catch (error) {
+      console.error("Error communicating with backend:", error);
+      return "Sorry, something went wrong with the AI.";
+    }
   };
 
   return (
     <div className="flex flex-col h-[80vh] max-w-5xl mx-auto border rounded-lg shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="bg-blue-600 text-white p-4 font-bold">
-        AI Assistant
-      </div>
-      
+      <div className="text-white p-4 font-bold bg-gradient-to-r from-[#0b3866] to-[#3fa96b]">
+  AI Assistant
+</div>
+
+
       {/* Messages container */}
       <div
         ref={messagesContainerRef}
         className="flex-grow p-4 overflow-y-auto bg-gray-50"
       >
         {messages.map((message) => (
-          <div 
-            key={message.id} 
-            className={`mb-4 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
+          <div
+            key={message.id}
+            className={`mb-4 ${
+              message.sender === "user" ? "text-right" : "text-left"
+            }`}
           >
-            <div 
+            <div
               className={`inline-block max-w-xs sm:max-w-md md:max-w-lg p-3 rounded-lg ${
-                message.sender === 'user' 
-                  ? 'bg-blue-500 text-white rounded-br-none' 
-                  : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                message.sender === "user"
+                  ? "bg-blue-500 text-white rounded-br-none"
+                  : "bg-gray-200 text-gray-800 rounded-bl-none"
               }`}
             >
-              {message.content}
+              {message.sender === "ai" ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: marked.parse(message.content),
+                  }}
+                />
+              ) : (
+                message.content
+              )}
             </div>
           </div>
         ))}
@@ -84,14 +113,20 @@ export default function AIChat() {
             <div className="inline-block bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none">
               <div className="flex space-x-2">
                 <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce"></div>
-                <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                <div
+                  className="h-2 w-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                ></div>
+                <div
+                  className="h-2 w-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.4s" }}
+                ></div>
               </div>
             </div>
           </div>
         )}
       </div>
-      
+
       {/* Input area */}
       <form onSubmit={handleSubmit} className="p-4 border-t bg-white">
         <div className="flex">
@@ -105,10 +140,22 @@ export default function AIChat() {
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 transition duration-200 disabled:bg-blue-300"
+            className="bg-gradient-to-r from-[#0b3866] to-[#3fa96b] text-white p-2 rounded-r-lg hover:brightness-90 transition duration-200 disabled:opacity-50"
+
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
             </svg>
           </button>
         </div>
