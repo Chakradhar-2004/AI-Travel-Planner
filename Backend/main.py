@@ -20,13 +20,19 @@ chat = model.start_chat(history=[])
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://ai-travel-planner-gules.vercel.app/"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://ai-travel-planner-gules.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # def get_db():
 #     db = SessionLocal()
